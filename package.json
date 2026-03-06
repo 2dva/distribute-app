@@ -1,0 +1,27 @@
+{
+  "name": "distribute-app",
+  "version": "0.1.0",
+  "description": "Backend for distributing webapps",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "ts-node-dev --rs ./src/index.ts",
+    "build": "rimraf ./dist && tsc --build ./tsconfig.json",
+    "start": "node ./dist/index.js",
+    "prettify": "prettier --loglevel warn --cache --write '{src/**/*,*}.{ts,json,yml,css,scss}' '!**/{node_modules,dist}/**/*'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "dotenv-cli": "^11.0.0",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.3.3",
+    "prettier": "^3.8.1",
+    "rimraf": "^6.1.3",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  }
+}
