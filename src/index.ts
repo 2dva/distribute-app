@@ -2,7 +2,6 @@ import dotenv from 'dotenv'
 import express, { NextFunction, Request, Response } from 'express'
 import { clRouter } from './carlines/carlines.controller'
 import { applyServeWebApp } from './lib/serveWebApp'
-import { authMiddleware } from './auth.middleware'
 
 dotenv.config()
 
@@ -10,6 +9,8 @@ void (async () => {
   const app = express()
 
   const PORT = process.env.PORT || 3000
+
+  app.use(express.json())
 
   await applyServeWebApp(app)
 

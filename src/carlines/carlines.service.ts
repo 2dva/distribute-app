@@ -18,7 +18,6 @@ export class ClService {
   }
 
   saveUserScore(name: string, score: number) {
-    if (score <= 0) return
     mockData.push([name, score])
     mockData.sort((a, b) => b[1] - a[1])
     mockData.splice(TOP_RESULTS_LIMIT - 1, 1)
