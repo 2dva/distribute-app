@@ -1,3 +1,5 @@
+import { logger } from './logger'
+
 const fs = require('fs').promises
 const path = require('path')
 const os = require('os')
@@ -12,9 +14,9 @@ async function safeSaveJSON(filename: string, data: object) {
 
     // 2. Атомарное перемещение (переименование)
     await fs.rename(tempPath, filePath)
-    console.log('Файл успешно сохранен')
+    logger.info('Файл успешно сохранен')
   } catch (err) {
-    console.error('Ошибка записи:', err)
+    logger.info('Ошибка записи:', err)
     // Попытка очистить временный файл при ошибке
     try {
       await fs.unlink(tempPath)

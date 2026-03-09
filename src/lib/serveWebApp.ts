@@ -1,6 +1,7 @@
+import express, { type Express } from 'express'
 import { promises as fs } from 'fs'
 import path from 'path'
-import express, { type Express } from 'express'
+import { logger } from './logger'
 
 const checkFileExists = async (filePath: string) => {
   return await fs
@@ -26,7 +27,7 @@ export const applyServeWebApp = async (expressApp: Express) => {
     if (process.env.HOST_ENV === 'production') {
       throw new Error('Webapp dist dir not found')
     } else {
-      console.error('webapp-serve', 'Webapp dist dir not found')
+      logger.error('webapp-serve', 'Webapp dist dir not found')
       return
     }
   }
