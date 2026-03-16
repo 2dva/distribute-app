@@ -1,7 +1,6 @@
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express, { NextFunction, Request, Response } from 'express'
-import helmet from 'helmet'
 import path from 'node:path'
 import { clRouter } from './carlines/carlines.controller'
 import { logger } from './lib/logger'
@@ -19,8 +18,6 @@ void (async () => {
     })
   )
   app.use(express.json())
-
-  app.use(helmet({ contentSecurityPolicy: false }))
 
   await applyServeWebApp(app)
 
