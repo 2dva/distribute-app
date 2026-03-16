@@ -1,9 +1,11 @@
 import dotenv from 'dotenv'
 import express, { NextFunction, Request, Response } from 'express'
 import helmet from 'helmet'
+import path from 'node:path'
 import { clRouter } from './carlines/carlines.controller'
 import { logger } from './lib/logger'
 import { applyServeWebApp } from './lib/serveWebApp'
+import { shopRouter } from './techshop/techshop.controller'
 
 dotenv.config()
 
@@ -16,7 +18,11 @@ void (async () => {
 
   await applyServeWebApp(app)
 
+  app.use('/static', express.static(path.join(__dirname, '..', 'static'), { index: false }))
+
   app.use('/api/cl', clRouter)
+
+  app.use('/api/techshop', shopRouter)
 
   app.all('*a', (req, res) => {
     res.status(404).send({ message: 'Not found' })

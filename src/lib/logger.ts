@@ -2,9 +2,9 @@ import { createLogger, format, transports } from 'winston'
 
 export const logger = createLogger({
   level: 'info',
-  format: format.combine(format.timestamp(), format.json()),
+  format: format.combine(format.timestamp(), format.errors({ stack: true }), format.json()),
   transports: [
-    new transports.Console(),
+    new transports.Console({ format: format.json() }),
     new transports.File({ filename: 'error.log', level: 'error' }),
     new transports.File({ filename: 'combine.log' }),
   ],
