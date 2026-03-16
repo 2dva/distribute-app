@@ -1,3 +1,4 @@
+import cors from 'cors'
 import dotenv from 'dotenv'
 import express, { NextFunction, Request, Response } from 'express'
 import helmet from 'helmet'
@@ -12,9 +13,14 @@ dotenv.config()
 void (async () => {
   const app = express()
 
-  app.use(helmet())
-
+  app.use(
+    cors({
+      credentials: true,
+    })
+  )
   app.use(express.json())
+
+  app.use(helmet({ contentSecurityPolicy: false }))
 
   await applyServeWebApp(app)
 
