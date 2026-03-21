@@ -1,10 +1,23 @@
 import { logger } from './logger'
+import { promises as fs } from 'fs'
+import path from 'path'
+import os from 'os'
 
-const fs = require('fs').promises
-const path = require('path')
-const os = require('os')
+export async function safeLoadJSON(filename: string) {
+  const filePath = path.join(__dirname, filename)
+  const data = await fs.readFile(filePath, 'utf8')
 
-async function safeSaveJSON(filename: string, data: object) {
+  let jsonData: unknown | null = null
+  try {
+    jsonData = JSON.parse(data)
+  } catch (parseError) {
+    jsonData = null
+    console.error('Error parsing JSON:', parseError)
+  }
+  return jsonData
+}
+
+export async function safeSaveJSON(filename: string, data: object) {
   const filePath = path.join(__dirname, filename)
   const tempPath = path.join(os.tmpdir(), `${filename}.tmp`)
 
@@ -23,6 +36,3 @@ async function safeSaveJSON(filename: string, data: object) {
     } catch (e) {}
   }
 }
-
-// Использование
-safeSaveJSON('data.json', { user: 'admin', safe: true })
